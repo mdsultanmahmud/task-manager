@@ -3,46 +3,59 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
 import './register.scss'
 const Register = () => {
-    const {user, RegisterUser, updateUserPro} = useContext(AuthContext)
-    const handleRegister = (e) =>{
+    const { user, RegisterUser, updateUserPro, loginGoogle } = useContext(AuthContext)
+    const handleRegister = (e) => {
         e.preventDefault()
-        const form = e.target 
+        const form = e.target
         const firstname = form.firstname.value
         const lastname = form.lastname.value
         const email = form.email.value
         const password = form.password.value
         const confirmPassword = form.confirmPassword.value
-        const name = firstname + ' '+ lastname
+        const name = firstname + ' ' + lastname
         const profile = {
             displayName: name
         }
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             toast.error('Password is not matching')
-        }else{
+        } else {
             RegisterUser(email, password)
-            .then(userCredential =>{
-                const crrUser = userCredential.user
-                console.log(crrUser)
-                if(crrUser.uid){
-                    updateUserPro(profile)
-                    .then( () =>{
-                        toast.success('You have created account successfully!')
-                        form.reset()
-                    })
-                    .catch(err =>{
-                        console.log(err)
-                        toast.error(err.message)
-                    })
-                }
-            })
-            .catch(err =>{
-                console.log(err)
-                toast.error(err.message)
-            })
+                .then(userCredential => {
+                    const crrUser = userCredential.user
+                    console.log(crrUser)
+                    if (crrUser.uid) {
+                        updateUserPro(profile)
+                            .then(() => {
+                                toast.success('You have created account successfully!')
+                                form.reset()
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                toast.error(err.message)
+                            })
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    toast.error(err.message)
+                })
         }
 
 
     }
+
+    const handleGoogleLogin = () => {
+        loginGoogle()
+            .then(crrUser => {
+                console.log(crrUser)
+                toast.success('Login successfull!!')
+            })
+            .catch(err => {
+                console.log(err)
+                toast.error(err.message)
+            })
+    }
+
     return (
         <div id='reg-container' className='bg-pink-300 dark:bg-black'>
             <div className='w-3/4 mx-auto bg-pink-300 dark:bg-gray-800 p-4 form-container'>
@@ -70,18 +83,18 @@ const Register = () => {
                         </div>
                     </div>
                     <button type='submit' className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-                    <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Sign Up
-                    </span>
-                </button>
-                  
+                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Sign Up
+                        </span>
+                    </button>
+
                 </form>
 
                 <div className="inline-flex justify-center items-center w-full">
                     <hr className="my-8 w-64 h-px bg-gray-200 border-0 dark:bg-gray-700" />
                     <span className="absolute left-1/2 px-3 font-medium text-gray-900 bg-white -translate-x-1/2 dark:text-white dark:bg-gray-900">or</span>
                 </div>
-                <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                <button onClick={handleGoogleLogin} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Sign in With Google
                     </span>
