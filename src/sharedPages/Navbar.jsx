@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthProvider';
 const Navbar = () => {
+    const { user, lgOut } = useContext(AuthContext)
     const [menulist, setmenuList] = useState(false)
     const [theme, setTheme] = useState('light')
     useEffect(() => {
@@ -13,6 +16,16 @@ const Navbar = () => {
     const handleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
+
+    const handleLogout = () => {
+        lgOut()
+            .then(res => {
+                toast.success("Logout Successfull!!")
+            })
+            .catch(err => {
+                toast.error(err.message)
+            })
+    }
     return (
 
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
@@ -21,7 +34,14 @@ const Navbar = () => {
                     <span className="self-center text-xl font-semibold whitespace-nowrap text-blue-600 dark:text-white">Task Manager</span>
                 </Link>
                 <div className="flex md:order-2">
-                    <Link to={'/login'}><button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button></Link>
+                    <>
+                        {
+                            user?.email ?
+                                <button onClick={handleLogout} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</button>
+                                :
+                                <Link to={'/login'}><button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button></Link>
+                        }
+                    </>
                     <button onClick={() => setmenuList(!menulist)} data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
                         <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                     </button>
@@ -40,14 +60,17 @@ const Navbar = () => {
                         <li>
                             <Link to={'/register'} href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Register</Link>
                         </li>
+                        {
+                            user?.email &&
+                            <li>
+                                <span className='text-gray-700 dark:text-gray-400 text-sm'>welcome, {user?.displayName?.slice(0, 14)}...</span>
+                            </li>
+                        }
                         <li>
-                            <Link to={'/theme'} href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">theme</Link>
-                        </li>
-                        <li>
-                        <label  className="inline-flex relative items-center cursor-pointer">
-                            <input type="checkbox" value="" className="sr-only peer" onChange={handleTheme}/>
+                            <label className="inline-flex relative items-center cursor-pointer">
+                                <input type="checkbox" value="" className="sr-only peer" onChange={handleTheme} />
                                 <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        </label>
+                            </label>
                         </li>
                     </ul>
                 </div>

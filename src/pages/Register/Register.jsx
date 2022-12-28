@@ -3,8 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
 import './register.scss'
 const Register = () => {
-    const {user} = useContext(AuthContext)
-    console.log(user)
+    const {user, RegisterUser, updateUserPro} = useContext(AuthContext)
     const handleRegister = (e) =>{
         e.preventDefault()
         const form = e.target 
@@ -13,10 +12,33 @@ const Register = () => {
         const email = form.email.value
         const password = form.password.value
         const confirmPassword = form.confirmPassword.value
+        const name = firstname + ' '+ lastname
+        const profile = {
+            displayName: name
+        }
         if(password !== confirmPassword){
             toast.error('Password is not matching')
         }else{
-
+            RegisterUser(email, password)
+            .then(userCredential =>{
+                const crrUser = userCredential.user
+                console.log(crrUser)
+                if(crrUser.uid){
+                    updateUserPro(profile)
+                    .then( () =>{
+                        toast.success('You have created account successfully!')
+                        form.reset()
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                        toast.error(err.message)
+                    })
+                }
+            })
+            .catch(err =>{
+                console.log(err)
+                toast.error(err.message)
+            })
         }
 
 

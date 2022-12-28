@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/AuthProvider';
 import '../Register/register.scss'
 const Login = () => {
+    const {Login} = useContext(AuthContext)
     const handleLogin = (e) =>{
         e.preventDefault()
         const form = e.target 
@@ -8,6 +11,17 @@ const Login = () => {
         const password = form.password.value
 
         console.log(email, password)
+        Login(email,password)
+        .then(crrUser =>{
+            const user = crrUser.user 
+            if(user.uid){
+                toast.success('Login Successfull!')
+            }
+        })
+        .catch(err =>{
+            console.log(err)
+            toast.error(err.message)
+        })
     }
     return (
         <div id='reg-container' className='bg-pink-300 dark:bg-black'>
