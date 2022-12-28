@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+$borderColor: tomato;
+$btnColor: #3b81f1;
+$bgColor:#002147;
+.box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    .child-container{
+        padding: 2rem;
+        border: 1px solid $borderColor;
+        border-radius: 10px;
+        text-align: justify;
+        width: 70%;
+    }
+    .btn-learn{
+        background-color: $btnColor;
+        padding: .5rem .8rem;
+        color: white;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    .btn-learn:hover{
+        background-color: black;
+    }
+}
