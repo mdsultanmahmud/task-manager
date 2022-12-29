@@ -1,0 +1,10 @@
+@import "../utilities.scss";
+#addtask-container{
+    display: grid;
+    place-items: center;
+    min-height: 95vh;
+    .child-container{
+        padding: 2rem;
+        width: 300px;
+    }
+}
