@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { Dna } from 'react-loader-spinner'
-import 'flowbite';
 import { toast } from 'react-hot-toast';
 
 const MyTask = () => {
@@ -19,11 +18,10 @@ const MyTask = () => {
                 setMytask(data)
                 setLoading(false)
             })
-    }, [user?.email], dataState)
+    }, [user?.email, dataState])
 
     // delete data 
     const handleDelete = id =>{
-        console.log(id)
         fetch(`http://localhost:5000/alltask/${id}`, {
             method:'DELETE'
         })
@@ -38,8 +36,18 @@ const MyTask = () => {
     }
 
     // handle complete task 
-    const handleCompleteTask = task =>{
-        console.log(task)
+    const handleCompleteTask = id =>{
+        fetch(`http://localhost:5000/alltask/${id}`, {
+            method:'PATCH'
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            if(data.modifiedCount){
+                toast.success('Task Completed!')
+                setDataState(!dataState)
+            }
+        })
     }
 
     if (loading) {
@@ -98,7 +106,7 @@ const MyTask = () => {
                                     {task.endingDate}
                                 </td>
                                 <td className="py-4 px-6">
-                                <button onClick={() => handleCompleteTask(task)} type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Complete</button>
+                                <button onClick={() => handleCompleteTask(task._id)} type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Complete</button>
                                 </td>
                                 <td className="py-4 px-6 text-right">
                                     <div className='flex'>
