@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { Dna } from 'react-loader-spinner'
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const MyTask = () => {
     const { user } = useContext(AuthContext)
@@ -48,6 +49,10 @@ const MyTask = () => {
                 setDataState(!dataState)
             }
         })
+    }
+
+    const handleEdit = (editTask) =>{
+        console.log(editTask)
     }
 
     if (loading) {
@@ -110,7 +115,7 @@ const MyTask = () => {
                                 </td>
                                 <td className="py-4 px-6 text-right">
                                     <div className='flex'>
-                                        <button type="button" className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Edit</button>
+                                        <Link to={`/mytask/${task._id}`}><button type="button" className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Edit</button></Link>
                                         <button onClick={() => handleDelete(task._id)} type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Delete</button>
                                     </div>
                                 </td>

@@ -4,6 +4,7 @@ import MainLayout from './layout/MainLayout'
 import AddTask from './pages/AddTask/AddTask'
 import CompleteTask from './pages/CompleteTask/CompleteTask'
 import Login from './pages/Login/Login'
+import EditTask from './pages/MyTask/EditTask'
 import MyTask from './pages/MyTask/MyTask'
 import Register from './pages/Register/Register'
 import Theme from './sharedPages/theme'
@@ -21,6 +22,11 @@ function App() {
         {
           path:'/mytask',
           element:<MyTask></MyTask>
+        },
+        {
+          path:'/mytask/:id',
+          element:<EditTask></EditTask>,
+          loader: ({params}) => fetch(`http://localhost:5000/alltask/${params.id}`)
         },
         {
           path:'/completetask',
