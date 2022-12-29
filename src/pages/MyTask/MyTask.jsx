@@ -13,7 +13,7 @@ const MyTask = () => {
     // data load 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:5000/alltask?email=${user?.email}`)
+        fetch(`https://task-manager-server-plum.vercel.app/alltask?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setMytask(data)
@@ -23,7 +23,7 @@ const MyTask = () => {
 
     // delete data 
     const handleDelete = id =>{
-        fetch(`http://localhost:5000/alltask/${id}`, {
+        fetch(`https://task-manager-server-plum.vercel.app/alltask/${id}`, {
             method:'DELETE'
         })
         .then(res => res.json())
@@ -38,7 +38,7 @@ const MyTask = () => {
 
     // handle complete task 
     const handleCompleteTask = id =>{
-        fetch(`http://localhost:5000/alltask/${id}`, {
+        fetch(`https://task-manager-server-plum.vercel.app/alltask/${id}`, {
             method:'PATCH'
         })
         .then(res => res.json())

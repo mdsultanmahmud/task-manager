@@ -8,7 +8,7 @@ const CompleteTask = () => {
     const {data: completedTasks = [], isLoading, refetch} = useQuery({
         queryKey:['email', 'user?.email'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/completed?email=${user?.email}`)
+            const res = await fetch(`https://task-manager-server-plum.vercel.app/completed?email=${user?.email}`)
             const data = res.json()
             return data
         }

@@ -21,7 +21,7 @@ const EditTask = () => {
             EditedImgURL,
             EditedTime,
         }
-        fetch(`http://localhost:5000/editedTask/${_id}`, {
+        fetch(`https://task-manager-server-plum.vercel.app/editedTask/${_id}`, {
             method:'PATCH',
             headers:{
                 'content-type': 'application/json'

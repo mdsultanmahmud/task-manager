@@ -28,7 +28,7 @@ function App() {
         {
           path: '/mytask/:id',
           element: <EditTask></EditTask>,
-          loader: ({ params }) => fetch(`http://localhost:5000/alltask/${params.id}`)
+          loader: ({ params }) => fetch(`https://task-manager-server-plum.vercel.app/alltask/${params.id}`)
         },
         {
           path: '/completetask',
@@ -37,7 +37,7 @@ function App() {
         {
           path: '/completeTask/:id',
           element: <CompleteDetails></CompleteDetails>,
-          loader: ({ params }) => fetch(`http://localhost:5000/alltask/${params.id}`)
+          loader: ({ params }) => fetch(`https://task-manager-server-plum.vercel.app/alltask/${params.id}`)
         },
         {
           path: '/theme',

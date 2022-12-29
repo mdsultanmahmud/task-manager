@@ -10,7 +10,7 @@ const CompleteDetails = () => {
     const {data: comments = []} = useQuery({
         queryKey:['comments'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/comments/${_id}`)
+            const res = await fetch(`https://task-manager-server-plum.vercel.app/comments/${_id}`)
             const data = res.json()
             return data
         }
@@ -35,7 +35,7 @@ const CompleteDetails = () => {
                 </div>
             </div>
             {
-                comments.lenght>0 ?
+                comments.length >0 ?
                 <h1 className='text-gray-800 text-lg font-bold dark:text-gray-50 my-4'>All comments about this task</h1>
                 :
                 <h1 className='text-gray-800 text-lg font-bold dark:text-gray-50 my-4'>There is no comment about this task.</h1>

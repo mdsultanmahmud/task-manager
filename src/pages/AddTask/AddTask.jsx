@@ -26,7 +26,7 @@ const AddTask = () => {
             completeStatus: false
 
         }
-        fetch('http://localhost:5000/alltask', {
+        fetch('https://task-manager-server-plum.vercel.app/alltask', {
             method:'POST',
             headers:{
                 'content-type': 'application/json'

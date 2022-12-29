@@ -6,7 +6,7 @@ const CompleteCard = ({ task, refetch }) => {
     const { user } = useContext(AuthContext)
     const [comment, setComment] = useState('')
     const handleDelete = id => {
-        fetch(`http://localhost:5000/alltask/${id}`, {
+        fetch(`https://task-manager-server-plum.vercel.app/alltask/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -20,7 +20,7 @@ const CompleteCard = ({ task, refetch }) => {
     }
 
     const handleNotComplete = id => {
-        fetch(`http://localhost:5000/complete/${id}`, {
+        fetch(`https://task-manager-server-plum.vercel.app/complete/${id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
@@ -50,7 +50,7 @@ const CompleteCard = ({ task, refetch }) => {
         if (comment === '') {
             toast.error('Please Write Something!!')
         } else {
-            fetch(`http://localhost:5000/comments`, {
+            fetch(`https://task-manager-server-plum.vercel.app/comments`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
