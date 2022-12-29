@@ -5,7 +5,7 @@ import CompleteCard from './CompleteCard';
 import { Dna } from 'react-loader-spinner'
 const CompleteTask = () => {
     const {user} = useContext(AuthContext)
-    const {data: completedTasks = [], loading, refetch} = useQuery({
+    const {data: completedTasks = [], isLoading, refetch} = useQuery({
         queryKey:['email', 'user?.email'],
         queryFn: async() =>{
             const res = await fetch(`http://localhost:5000/completed?email=${user?.email}`)
@@ -13,7 +13,7 @@ const CompleteTask = () => {
             return data
         }
     })
-    if (loading) {
+    if (isLoading) {
         return <div className='min-h-screen w-full flex justify-center items-center'>
             <Dna
                 visible={true}

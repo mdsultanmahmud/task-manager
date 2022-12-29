@@ -7,6 +7,7 @@ import Login from './pages/Login/Login'
 import EditTask from './pages/MyTask/EditTask'
 import MyTask from './pages/MyTask/MyTask'
 import Register from './pages/Register/Register'
+import PrivateRoutes from './privateRoutes/PrivateRoutes'
 import Theme from './sharedPages/theme'
 import './style.scss'
 function App() {
@@ -21,7 +22,7 @@ function App() {
         },
         {
           path:'/mytask',
-          element:<MyTask></MyTask>
+          element:<PrivateRoutes><MyTask></MyTask></PrivateRoutes>
         },
         {
           path:'/mytask/:id',
@@ -30,7 +31,7 @@ function App() {
         },
         {
           path:'/completetask',
-          element:<CompleteTask></CompleteTask>
+          element:<PrivateRoutes><CompleteTask></CompleteTask></PrivateRoutes>
         },
         {
           path:'/theme',

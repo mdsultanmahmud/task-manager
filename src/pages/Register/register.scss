@@ -1,7 +1,7 @@
 $boxShadow: 1px 1px 4px 4px rgba(0, 0, 0, 0.2), 
 1px 1px 4px 4px rgba(0, 0, 0, 0.2);
 #reg-container{
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
