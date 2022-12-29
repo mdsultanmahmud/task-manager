@@ -2,6 +2,7 @@ import { Toaster } from 'react-hot-toast'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainLayout from './layout/MainLayout'
 import AddTask from './pages/AddTask/AddTask'
+import CompleteDetails from './pages/CompleteTask/CompleteDetails'
 import CompleteTask from './pages/CompleteTask/CompleteTask'
 import Login from './pages/Login/Login'
 import EditTask from './pages/MyTask/EditTask'
@@ -13,37 +14,42 @@ import './style.scss'
 function App() {
   const router = createBrowserRouter([
     {
-      path:'/',
-      element:<MainLayout></MainLayout>,
-      children:[
+      path: '/',
+      element: <MainLayout></MainLayout>,
+      children: [
         {
-          path:'/',
-          element:<AddTask></AddTask>
+          path: '/',
+          element: <AddTask></AddTask>
         },
         {
-          path:'/mytask',
-          element:<PrivateRoutes><MyTask></MyTask></PrivateRoutes>
+          path: '/mytask',
+          element: <PrivateRoutes><MyTask></MyTask></PrivateRoutes>
         },
         {
-          path:'/mytask/:id',
-          element:<EditTask></EditTask>,
-          loader: ({params}) => fetch(`http://localhost:5000/alltask/${params.id}`)
+          path: '/mytask/:id',
+          element: <EditTask></EditTask>,
+          loader: ({ params }) => fetch(`http://localhost:5000/alltask/${params.id}`)
         },
         {
-          path:'/completetask',
-          element:<PrivateRoutes><CompleteTask></CompleteTask></PrivateRoutes>
+          path: '/completetask',
+          element: <PrivateRoutes><CompleteTask></CompleteTask></PrivateRoutes>
         },
         {
-          path:'/theme',
-          element:<Theme></Theme>
+          path: '/completeTask/:id',
+          element: <CompleteDetails></CompleteDetails>,
+          loader: ({ params }) => fetch(`http://localhost:5000/alltask/${params.id}`)
         },
         {
-          path:'/register',
-          element:<Register></Register>
+          path: '/theme',
+          element: <Theme></Theme>
         },
         {
-          path:'/login',
-          element:<Login></Login>
+          path: '/register',
+          element: <Register></Register>
+        },
+        {
+          path: '/login',
+          element: <Login></Login>
         }
       ]
     }

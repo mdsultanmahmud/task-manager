@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import '../Register/register.scss'
 const Login = () => {
@@ -43,6 +43,7 @@ const Login = () => {
                         Sign In
                     </span>
                 </button>
+                <p className='my-2 text-xl text-green-800 font-semibold'>Do you have not any account? Please <Link to={'/register'} className='text-blue-500 underline'>Register</Link> </p>
             </form>
         </div>
     );

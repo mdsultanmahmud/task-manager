@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
+import { Link } from 'react-router-dom';
 import './register.scss'
 const Register = () => {
     const { user, RegisterUser, updateUserPro, loginGoogle } = useContext(AuthContext)
@@ -17,7 +18,7 @@ const Register = () => {
             displayName: name
         }
         if (password !== confirmPassword) {
-            toast.error('Password is not matching')
+            toast.error('Password is not matching') 
         } else {
             RegisterUser(email, password)
                 .then(userCredential => {
@@ -87,7 +88,7 @@ const Register = () => {
                             Sign Up
                         </span>
                     </button>
-
+                    <p className='my-2 text-xl text-green-800 font-semibold'>Alread have an account? Please <Link to={'/login'} className='text-blue-500 underline'>Login</Link> </p>
                 </form>
 
                 <div className="inline-flex justify-center items-center w-full">
